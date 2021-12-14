@@ -9,3 +9,9 @@ variable "rg_name" {
   type = string
   description = "name of resource group"
 }
+
+# Azure Container Registryの名前
+variable "acr_name" {
+  type = string
+  description = "name of Azure Container Registry"
+}

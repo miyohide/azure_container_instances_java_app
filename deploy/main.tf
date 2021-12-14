@@ -22,3 +22,12 @@ resource "azurerm_subnet" "subnet1" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
 }
+
+# Azure Container Registryの作成
+resource "azurerm_container_registry" "acr" {
+  location            = azurerm_resource_group.rg.location
+  name                = var.acr_name
+  resource_group_name = azurerm_resource_group.rg.name
+  sku = "Basic"
+  admin_enabled = true
+}
