@@ -13,7 +13,7 @@ data "azurerm_container_registry" "acr" {
 
 # VNETの作成
 resource "azurerm_virtual_network" "vnet" {
-  address_space       = ["10.0.0.0/16"]
+  address_space       = ["192.168.0.0/16"]
   location            = data.azurerm_resource_group.rg.location
   name                = "aciJavaAppVnet"
   resource_group_name = data.azurerm_resource_group.rg.name
@@ -24,7 +24,7 @@ resource "azurerm_subnet" "subnet1" {
   name                 = "aciJavaAppSubnet1"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes = ["10.0.0.0/24"]
+  address_prefixes = ["192.168.0.0/24"]
 
   delegation {
     name = "delegation"
