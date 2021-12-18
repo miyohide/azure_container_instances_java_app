@@ -32,6 +32,21 @@ resource "azurerm_subnet" "subnet1" {
   }
 }
 
+# network profileの作成
+resource "azurerm_network_profile" "profile" {
+  location            = azurerm_resource_group.rg.location
+  name                = var.profile_name
+  resource_group_name = azurerm_resource_group.rg.name
+
+  container_network_interface {
+    name = "container_if"
+    ip_configuration {
+      name      = "ipconfig"
+      subnet_id = azurerm_subnet.subnet1.id
+    }
+  }
+}
+
 # Azure Container Registryの作成
 resource "azurerm_container_registry" "acr" {
   location            = azurerm_resource_group.rg.location

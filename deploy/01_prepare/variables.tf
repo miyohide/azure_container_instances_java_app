@@ -15,3 +15,9 @@ variable "acr_name" {
   type = string
   description = "name of Azure Container Registry"
 }
+
+# Azure Network Profileの作成
+variable "profile_name" {
+  type = string
+  description = "name of Azure Network Profile"
+}
