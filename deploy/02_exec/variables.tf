@@ -1,9 +1,3 @@
-# resource groupの場所
-variable "rg_location" {
-  type = string
-  default = "japaneast"
-  description = "region of resource group"
-}
 # resource groupの名前
 variable "rg_name" {
   type = string
@@ -14,4 +8,16 @@ variable "rg_name" {
 variable "acr_name" {
   type = string
   description = "name of Azure Container Registry"
+}
+
+# Azure Container Instancesの名前
+variable "aci_name" {
+  type = string
+  description = "name of Azure Container Instances"
+}
+
+# Azure Network Profileの名前
+variable "profile_name" {
+  type = string
+  description = "name of Azure Network Profile"
 }
