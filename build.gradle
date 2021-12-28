@@ -2,10 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.google.cloud.tools.jib' version '3.1.4'
 }
 
 group = 'com.github.miyohide'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 repositories {
@@ -21,3 +22,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jib.container.creationTime = 'USE_CURRENT_TIMESTAMP'
