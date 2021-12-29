@@ -27,7 +27,7 @@ jobs:
       - name: create Docker Image
         run: |
           IMAGE_TAG=$(echo ${{ github.ref }} | sed -e 's/refs\/tags\///')
-          ./gradlew bootBuildImage --imageName=${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
+          ./gradlew jibDockerBuild --image=${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
           docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
           docker tag ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
           docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
