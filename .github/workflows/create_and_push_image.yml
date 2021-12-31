@@ -19,18 +19,18 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      # - uses: azure/docker-login@v1
-      #   with:
-      #     login-server: ${{ secrets.REGISTRY_SERVER }}
-      #     username: ${{ secrets.REGISTRY_USERNAME }}
-      #     password: ${{ secrets.REGISTRY_PASSWORD }}
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: create Docker Image
         run: |
           IMAGE_TAG=$(echo ${{ github.ref }} | sed -e 's/refs\/tags\///')
           ./gradlew jibDockerBuild --image=${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
-          # docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
-          # docker tag ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
-          # docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
+          docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG
+          docker tag ${{ secrets.REGISTRY_SERVER }}/aci_java_app:$IMAGE_TAG ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
+          docker push ${{ secrets.REGISTRY_SERVER }}/aci_java_app:latest
 
   build-Sidecar:
     runs-on: ubuntu-latest
@@ -42,3 +42,6 @@ jobs:
           cd sidecar
           IMAGE_TAG=$(echo ${{ github.ref }} | sed -e 's/refs\/tags\///')
           docker build -t ${{ secrets.REGISTRY_SERVER }}/sidecar:$IMAGE_TAG .
+          docker push ${{ secrets.REGISTRY_SERVER }}/sidecar:$IMAGE_TAG
+          docker tag ${{ secrets.REGISTRY_SERVER }}/sidecar:$IMAGE_TAG ${{ secrets.REGISTRY_SERVER }}/sidecar:latest
+          docker push ${{ secrets.REGISTRY_SERVER }}/sidecar:latest
