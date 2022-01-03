@@ -5,6 +5,9 @@
     <title>Azure Container Instances Java App</title>
 </head>
 <body>
-  <h1 th:text="'This server is ' + ${server_ip_address}"></h1>
+  <h1>IP Addresses</h1>
+  <ul th:each="address : ${addresses}">
+    <li th:text="${address}"></li>
+  </ul>
 </body>
 </html>
