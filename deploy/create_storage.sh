@@ -12,3 +12,7 @@ az storage account create --resource-group $RESOURCE_GROUP_NAME --name $STORAGE_
 
 # Create blob container
 az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT_NAME
+
+echo "Run follow commands"
+echo "ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query '[0].value' -o tsv)"
+echo "export ARM_ACCESS_KEY=$ACCOUNT_KEY"
