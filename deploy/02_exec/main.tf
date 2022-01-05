@@ -11,44 +11,44 @@ data "azurerm_container_registry" "acr" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
-# # VNETの作成
-# resource "azurerm_virtual_network" "vnet" {
-#   address_space       = ["192.168.0.0/16"]
-#   location            = data.azurerm_resource_group.rg.location
-#   name                = "aciJavaAppVnet"
-#   resource_group_name = data.azurerm_resource_group.rg.name
-# }
+# VNETの作成
+resource "azurerm_virtual_network" "vnet" {
+  address_space       = ["192.168.0.0/16"]
+  location            = data.azurerm_resource_group.rg.location
+  name                = "aciJavaAppVnet"
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
 
-# # Subnetの作成
-# resource "azurerm_subnet" "subnet1" {
-#   name                 = "aciJavaAppSubnet1"
-#   resource_group_name  = data.azurerm_resource_group.rg.name
-#   virtual_network_name = azurerm_virtual_network.vnet.name
-#   address_prefixes = ["192.168.0.0/24"]
+# Subnetの作成
+resource "azurerm_subnet" "subnet1" {
+  name                 = "aciJavaAppSubnet1"
+  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes = ["192.168.0.0/24"]
 
-#   delegation {
-#     name = "delegation"
-#     service_delegation {
-#       name = "Microsoft.ContainerInstance/containerGroups"
-#       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-#     }
-#   }
-# }
+  delegation {
+    name = "delegation"
+    service_delegation {
+      name = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
 
-# # network profileの作成
-# resource "azurerm_network_profile" "profile" {
-#   location            = data.azurerm_resource_group.rg.location
-#   name                = var.profile_name
-#   resource_group_name = data.azurerm_resource_group.rg.name
+# network profileの作成
+resource "azurerm_network_profile" "profile" {
+  location            = data.azurerm_resource_group.rg.location
+  name                = var.profile_name
+  resource_group_name = data.azurerm_resource_group.rg.name
 
-#   container_network_interface {
-#     name = "container_if"
-#     ip_configuration {
-#       name      = "ipconfig"
-#       subnet_id = azurerm_subnet.subnet1.id
-#     }
-#   }
-# }
+  container_network_interface {
+    name = "container_if"
+    ip_configuration {
+      name      = "ipconfig"
+      subnet_id = azurerm_subnet.subnet1.id
+    }
+  }
+}
 
 resource "azurerm_container_group" "aci" {
   location            = data.azurerm_resource_group.rg.location
@@ -56,8 +56,7 @@ resource "azurerm_container_group" "aci" {
   os_type             = "linux"
   resource_group_name = data.azurerm_resource_group.rg.name
   ip_address_type = "Public"
-  dns_name_label = "aci-miyohide-javaapp"
-  # network_profile_id = azurerm_network_profile.profile.id
+  network_profile_id = azurerm_network_profile.profile.id
 
   image_registry_credential {
     password = data.azurerm_container_registry.acr.admin_password
