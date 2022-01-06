@@ -17,7 +17,7 @@ variable "aci_name" {
 }
 
 # Azure Network Profileの名前
-# variable "profile_name" {
-#   type = string
-#   description = "name of Azure Network Profile"
-# }
+variable "profile_name" {
+  type = string
+  description = "name of Azure Network Profile"
+}
