@@ -55,7 +55,7 @@ resource "azurerm_container_group" "aci" {
   name                = var.aci_name
   os_type             = "linux"
   resource_group_name = data.azurerm_resource_group.rg.name
-  ip_address_type = "Public"
+  ip_address_type = "Private"
   network_profile_id = azurerm_network_profile.profile.id
 
   image_registry_credential {
