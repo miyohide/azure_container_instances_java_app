@@ -25,4 +25,4 @@ test {
 }
 
 jib.container.creationTime = 'USE_CURRENT_TIMESTAMP'
-jib.container.jvmFlags = ['javaagent:/ai/applicationinsights-agent-3.2.4.jar']
+jib.container.jvmFlags = ['-javaagent:/ai/applicationinsights-agent-3.2.4.jar']
