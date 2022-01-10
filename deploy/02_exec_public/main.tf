@@ -16,7 +16,7 @@ resource "azurerm_container_group" "aci" {
   name                = var.aci_name
   os_type             = "linux"
   resource_group_name = data.azurerm_resource_group.rg.name
-  ip_address_type = "Public"
+  ip_address_type     = "Public"
 
   image_registry_credential {
     password = data.azurerm_container_registry.acr.admin_password
@@ -30,13 +30,13 @@ resource "azurerm_container_group" "aci" {
     memory = 1.0
     name   = "aci-java-app"
     ports {
-      port = 8080
+      port     = 8080
       protocol = "TCP"
     }
   }
 
   container {
-    cpu = "0.5"
+    cpu    = "0.5"
     image  = "${data.azurerm_container_registry.acr.login_server}/sidecar:latest"
     memory = 1.0
     name   = "sidecar"
