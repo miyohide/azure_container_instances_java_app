@@ -33,6 +33,9 @@ resource "azurerm_container_group" "aci" {
       port     = 8080
       protocol = "TCP"
     }
+    environment_variables = {
+      APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.ai.instrumentation_key
+    }
   }
 
   container {
